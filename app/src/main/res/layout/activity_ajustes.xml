@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="#FFFFFF">
+
+    <!-- Botão de Voltar -->
+    <LinearLayout
+        android:id="@+id/btnVoltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@android:drawable/ic_media_previous" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VOLTAR"
+            android:textSize="14sp"
+            android:layout_marginStart="6dp"
+            android:textColor="#000000"/>
+    </LinearLayout>
+
+    <!-- Engrenagem -->
+    <ImageButton
+        android:id="@+id/btnEngrenagem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:background="@android:color/transparent"
+        android:src="@android:drawable/ic_menu_manage" />
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/tvTitulo"
+        android:layout_below="@+id/btnVoltar"
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ajustes"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Botão Sobre Nós -->
+    <Button
+        android:id="@+id/btnSobreNos"
+        android:layout_below="@id/tvTitulo"
+        android:layout_marginTop="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sobre nós"
+        android:textColor="#000000"
+        android:background="@android:color/transparent"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@android:color/transparent"
+        android:drawableBottom="@null" />
+
+    <!-- Linha abaixo do botão -->
+    <View
+        android:layout_below="@id/btnSobreNos"
+        android:layout_width="120dp"
+        android:layout_height="1dp"
+        android:layout_centerHorizontal="true"
+        android:background="#000000" />
+
+    <!-- Botão Sair -->
+    <Button
+        android:id="@+id/btnSair"
+        android:layout_below="@id/btnSobreNos"
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sair"
+        android:textColor="#000000"
+        android:background="@android:color/transparent"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Linha abaixo do botão Sair -->
+    <View
+        android:layout_below="@id/btnSair"
+        android:layout_width="120dp"
+        android:layout_height="1dp"
+        android:layout_centerHorizontal="true"
+        android:background="#000000" />
+
+    <!-- Rodapé -->
+    <TextView
+        android:id="@+id/tvRodape"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CliniVox"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+</RelativeLayout>
