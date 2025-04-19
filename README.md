@@ -45,7 +45,7 @@ Os dados do usuário são protegidos com segurança e criptografia. Tudo o que �
 
 ## 🛠️ Tecnologias
 
-- Kotlin (Android Studio)
+- Java (Android Studio)
 - Firebase (autenticação e/ou base de dados)
 - VAPI.AI (integração de voz)
 - XML para interfaces
