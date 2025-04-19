@@ -34,7 +34,7 @@ Os dados do usuário são protegidos com segurança e criptografia. Tudo o que �
 - [Caik](https://github.com/)  
 - [Igor](https://github.com/)  
 
-> Projeto desenvolvido com 💙 na organização [CliniVox](https://github.com/CliniVox)
+> Projeto desenvolvido na organização [CliniVox](https://github.com/CliniVox)
 
 ---
 
