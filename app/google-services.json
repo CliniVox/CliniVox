@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "131446845458",
+    "project_id": "clinivoxapp",
+    "storage_bucket": "clinivoxapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131446845458:android:aee1d4f092d3dca636a8cb",
+        "android_client_info": {
+          "package_name": "com.example.clinivox"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4VniPsnxXlhCZWbZAbP3rMpcJXa8Dd2Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

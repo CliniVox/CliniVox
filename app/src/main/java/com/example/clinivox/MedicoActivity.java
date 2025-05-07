@@ -1,6 +1,8 @@
 package com.example.clinivox;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +13,13 @@ public class MedicoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medico);
+
+        // Botão de configurações
+        ImageButton btnConfig = findViewById(R.id.btnConfig);
+        btnConfig.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AjustesActivity.class);
+            startActivity(intent);
+        });
 
         tvNome = findViewById(R.id.tvNomeMedico);
         tvConsultasHoje = findViewById(R.id.tvConsultasHoje);

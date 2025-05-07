@@ -1,109 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="24dp"
-    android:background="#FFFFFF">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_settings"
+    android:layout_width="match_parent"    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".AjustesActivity">
 
-    <!-- Botão de Voltar -->
-    <LinearLayout
+    <!-- Botão voltar -->
+    <TextView
         android:id="@+id/btnVoltar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentStart="true">
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@android:drawable/ic_media_previous" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="VOLTAR"
-            android:textSize="14sp"
-            android:layout_marginStart="6dp"
-            android:textColor="#000000"/>
-    </LinearLayout>
-
-    <!-- Engrenagem -->
-    <ImageButton
-        android:id="@+id/btnEngrenagem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:background="@android:color/transparent"
-        android:src="@android:drawable/ic_menu_manage" />
-
-    <!-- Título -->
+        android:text="← VOLTAR"
+        android:textSize="14sp"
+        android:textColor="#000000"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp" />
+    
+    <!-- Título Ajustes -->
     <TextView
-        android:id="@+id/tvTitulo"
-        android:layout_below="@+id/btnVoltar"
-        android:layout_marginTop="40dp"
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ajustes"
-        android:textSize="24sp"
+        android:textSize="28sp"
         android:textStyle="bold"
         android:textColor="#000000"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp" />
 
     <!-- Botão Sobre Nós -->
     <Button
         android:id="@+id/btnSobreNos"
-        android:layout_below="@id/tvTitulo"
-        android:layout_marginTop="100dp"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Sobre nós"
-        android:textColor="#000000"
-        android:background="@android:color/transparent"
         android:textSize="18sp"
+        android:background="@android:color/transparent"
+        android:textColor="#000000"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
+        android:layout_below="@id/tvTitle"
+        android:layout_marginTop="80dp"
+        android:gravity="center"
+        android:padding="10dp"
         android:backgroundTint="@android:color/transparent"
-        android:drawableBottom="@null" />
+        android:stateListAnimator="@null" />
 
-    <!-- Linha abaixo do botão -->
     <View
-        android:layout_below="@id/btnSobreNos"
-        android:layout_width="120dp"
+        android:layout_width="200dp"
         android:layout_height="1dp"
+        android:layout_below="@id/btnSobreNos"
         android:layout_centerHorizontal="true"
-        android:background="#000000" />
+        android:background="#999999"
+        android:layout_marginTop="4dp" />
 
     <!-- Botão Sair -->
     <Button
         android:id="@+id/btnSair"
-        android:layout_below="@id/btnSobreNos"
-        android:layout_marginTop="40dp"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Sair"
-        android:textColor="#000000"
-        android:background="@android:color/transparent"
         android:textSize="18sp"
-        android:layout_centerHorizontal="true" />
+        android:background="@android:color/transparent"
+        android:textColor="#000000"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btnSobreNos"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:backgroundTint="@android:color/transparent"
+        android:stateListAnimator="@null" />
 
-    <!-- Linha abaixo do botão Sair -->
     <View
-        android:layout_below="@id/btnSair"
-        android:layout_width="120dp"
+        android:layout_width="200dp"
         android:layout_height="1dp"
+        android:layout_below="@id/btnSair"
         android:layout_centerHorizontal="true"
-        android:background="#000000" />
+        android:background="#999999"
+        android:layout_marginTop="4dp" />
 
-    <!-- Rodapé -->
+    <!-- Texto inferior CliniVox -->
     <TextView
-        android:id="@+id/tvRodape"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
+        android:id="@+id/tvLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CliniVox"
-        android:textColor="#000000"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:textColor="#000000" />
 </RelativeLayout>
