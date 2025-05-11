@@ -43,6 +43,8 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation("com.google.firebase:firebase-auth:22.3.1")
     implementation("com.google.firebase:firebase-firestore:24.11.0")
+    //implementation("ai.vapi:vapi-android-sdk:1.0.7")
+
 
 
 }

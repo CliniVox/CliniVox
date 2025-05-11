@@ -50,7 +50,7 @@
 
     <!-- Texto abaixo do assistente -->
     <TextView
-        android:id="@+id/textFalar"
+        android:id="@+id/btnFalar"
         android:layout_below="@id/imgAssistente"
         android:layout_marginTop="8dp"
         android:layout_width="wrap_content"
@@ -63,13 +63,13 @@
     <!-- Botão de consultas -->
     <Button
         android:id="@+id/btnConsultas"
-        android:layout_below="@id/textFalar"
+        android:layout_below="@id/btnFalar"
         android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#A8D5A2"
-        android:text="Consultas Agendadas"
+        android:text="Ver Consultas"
         android:textColor="#000000"
         android:textSize="16sp"
         android:padding="12dp" />

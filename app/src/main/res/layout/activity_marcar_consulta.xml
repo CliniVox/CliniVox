@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FAFAFA">
+
+    <!-- Cabeçalho com ícone de voltar e configurações -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#2E86DE">
+
+        <ImageView
+            android:id="@+id/btnVoltar"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@android:drawable/ic_media_previous"
+            android:tint="#FFFFFF" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Marcar Consulta"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:gravity="center" />
+
+        <ImageView
+            android:id="@+id/btnConfig"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@android:drawable/ic_menu_preferences"
+            android:tint="#FFFFFF" />
+    </LinearLayout>
+
+    <!-- Conteúdo com ScrollView -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Seus campos continuam aqui -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Preencha os dados abaixo:"
+                android:textColor="#2C3E50"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Especialidade -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Especialidade"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp" />
+
+            <Spinner
+                android:id="@+id/spinnerEspecialidade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Data -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Data (dd/mm/aaaa)"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/editData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ex: 15/05/2025"
+                android:inputType="date"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Hora -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hora (hh:mm)"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/editHora"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ex: 14:30"
+                android:inputType="time"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Botão -->
+            <Button
+                android:id="@+id/btnConfirmarConsulta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Confirmar Consulta"
+                android:backgroundTint="#2E86DE"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -81,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
                                 intent = new Intent(this, MedicoActivity.class);
                             } else {
                                 intent = new Intent(this, PacienteActivity.class);
+
                             }
+                            intent.putExtra("identificador", identificador); // pode ser o CPF ou CRM
                             startActivity(intent);
                             finish();
                         } else {
