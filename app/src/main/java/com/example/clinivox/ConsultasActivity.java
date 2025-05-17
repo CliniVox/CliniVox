@@ -14,10 +14,9 @@ import android.graphics.Typeface;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import java.text.SimpleDateFormat;  // Adicionada a importação
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 
 public class ConsultasActivity extends AppCompatActivity {
 
@@ -51,20 +50,33 @@ public class ConsultasActivity extends AppCompatActivity {
             return;
         }
 
+        carregarConsultas();
+    }
+
+    private void carregarConsultas() {
         db.collection("consultas")
-                .document(cpf)
-                .collection("agendadas")
+                .whereEqualTo("cpf_paciente", cpf)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                         String especialidade = doc.getString("especialidade");
                         String data = doc.getString("data");
                         String hora = doc.getString("hora");
-                        String medico = doc.getString("medico");
                         String local = doc.getString("local");
+                        String crmMedico = doc.getString("crm_medico");
                         String docId = doc.getId();
 
-                        adicionarCardConsulta(especialidade, medico, data + " às " + hora, local, docId);
+                        // Buscar nome do médico
+                        db.collection("medicos")
+                                .document(crmMedico)
+                                .get()
+                                .addOnSuccessListener(medicoDoc -> {
+                                    String nomeMedico = medicoDoc.exists() ? medicoDoc.getString("nome") : "Médico não encontrado";
+                                    adicionarCardConsulta(especialidade, nomeMedico, data + " às " + hora, local, docId);
+                                })
+                                .addOnFailureListener(e -> {
+                                    adicionarCardConsulta(especialidade, "Erro ao buscar médico", data + " às " + hora, local, docId);
+                                });
                     }
                 })
                 .addOnFailureListener(e -> Toast.makeText(this, "Erro ao carregar consultas", Toast.LENGTH_SHORT).show());
@@ -120,112 +132,94 @@ public class ConsultasActivity extends AppCompatActivity {
             builder.setTitle("O que deseja fazer?");
             builder.setItems(new CharSequence[]{"Editar", "Cancelar consulta"}, (dialog, which) -> {
                 if (which == 0) {
-                    // EDITAR
-                    final TextView txtNovaData = new TextView(this);
-                    txtNovaData.setHint("Selecionar nova data");
-                    txtNovaData.setText("Toque para escolher a nova data");
-                    txtNovaData.setTextSize(16);
-                    txtNovaData.setPadding(20, 30, 20, 20);
-                    txtNovaData.setTextColor(Color.BLACK);
-
-                    final TextView txtNovaHora = new TextView(this);
-                    txtNovaHora.setHint("Selecionar nova hora");
-                    txtNovaHora.setText("Toque para escolher a nova hora");
-                    txtNovaHora.setTextSize(16);
-                    txtNovaHora.setPadding(20, 10, 20, 30);
-                    txtNovaHora.setTextColor(Color.BLACK);
-
-                    txtNovaData.setOnClickListener(view -> {
-                        final Calendar c = Calendar.getInstance();
-                        int ano = c.get(Calendar.YEAR);
-                        int mes = c.get(Calendar.MONTH);
-                        int dia = c.get(Calendar.DAY_OF_MONTH);
-
-                        DatePickerDialog datePicker = new DatePickerDialog(ConsultasActivity.this, (view1, year, month, dayOfMonth) -> {
-                            String dataSelecionada = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year);
-                            txtNovaData.setText("Data: " + dataSelecionada);
-                            txtNovaData.setTag(dataSelecionada);
-                        }, ano, mes, dia);
-                        datePicker.show();
-                    });
-
-                    txtNovaHora.setOnClickListener(view -> {
-                        final Calendar c = Calendar.getInstance();
-                        int hora = c.get(Calendar.HOUR_OF_DAY);
-                        int minuto = c.get(Calendar.MINUTE);
-
-                        TimePickerDialog timePicker = new TimePickerDialog(ConsultasActivity.this, (view12, hourOfDay, minute) -> {
-                            String horaSelecionada = String.format("%02d:%02d", hourOfDay, minute);
-                            txtNovaHora.setText("Hora: " + horaSelecionada);
-                            txtNovaHora.setTag(horaSelecionada);
-                        }, hora, minuto, true);
-                        timePicker.show();
-                    });
-
-                    LinearLayout layoutEdit = new LinearLayout(this);
-                    layoutEdit.setOrientation(LinearLayout.VERTICAL);
-                    layoutEdit.setPadding(50, 40, 50, 10);
-                    layoutEdit.addView(txtNovaData);
-                    layoutEdit.addView(txtNovaHora);
-
-                    new AlertDialog.Builder(ConsultasActivity.this)
-                            .setTitle("Editar Consulta")
-                            .setView(layoutEdit)
-                            .setPositiveButton("Salvar", (dialog1, which1) -> {
-                                String novaData = (String) txtNovaData.getTag();
-                                String novaHora = (String) txtNovaHora.getTag();
-
-                                if (novaData == null || novaHora == null) {
-                                    Toast.makeText(ConsultasActivity.this, "Selecione a nova data e hora", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-
-                                // Verificação de data/hora futura
-                                try {
-                                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                                    sdf.setLenient(false);
-                                    Date dataHoraNova = sdf.parse(novaData + " " + novaHora);
-
-                                    Date agora = new Date();
-                                    if (dataHoraNova.before(agora)) {
-                                        Toast.makeText(ConsultasActivity.this, "A nova data e hora devem ser futuras.", Toast.LENGTH_SHORT).show();
-                                        return;
-                                    }
-
-                                    db.collection("consultas")
-                                            .document(cpf)
-                                            .collection("agendadas")
-                                            .document(docId)
-                                            .update("data", novaData, "hora", novaHora)
-                                            .addOnSuccessListener(aVoid -> {
-                                                Toast.makeText(ConsultasActivity.this, "Consulta atualizada com sucesso", Toast.LENGTH_SHORT).show();
-                                                recreate();
-                                            })
-                                            .addOnFailureListener(e -> Toast.makeText(ConsultasActivity.this, "Erro ao atualizar", Toast.LENGTH_SHORT).show());
-                                } catch (Exception e) {
-                                    Toast.makeText(ConsultasActivity.this, "Formato de data ou hora inválido. Use dd/MM/yyyy e HH:mm.", Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            .setNegativeButton("Cancelar", null)
-                            .show();
-
+                    editarConsulta(docId);
                 } else if (which == 1) {
-                    // EXCLUIR
                     db.collection("consultas")
-                            .document(cpf)
-                            .collection("agendadas")
                             .document(docId)
                             .delete()
                             .addOnSuccessListener(aVoid -> {
-                                Toast.makeText(ConsultasActivity.this, "Consulta excluída", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ConsultasActivity.this, "Consulta cancelada", Toast.LENGTH_SHORT).show();
                                 recreate();
                             })
-                            .addOnFailureListener(e -> Toast.makeText(ConsultasActivity.this, "Erro ao excluir", Toast.LENGTH_SHORT).show());
+                            .addOnFailureListener(e -> Toast.makeText(ConsultasActivity.this, "Erro ao cancelar", Toast.LENGTH_SHORT).show());
                 }
             });
             builder.show();
         });
 
         consultasContainer.addView(card);
+    }
+
+    private void editarConsulta(String docId) {
+        final TextView txtNovaData = new TextView(this);
+        txtNovaData.setText("Toque para escolher a nova data");
+        txtNovaData.setTextSize(16);
+        txtNovaData.setPadding(20, 30, 20, 20);
+        txtNovaData.setTextColor(Color.BLACK);
+
+        final TextView txtNovaHora = new TextView(this);
+        txtNovaHora.setText("Toque para escolher a nova hora");
+        txtNovaHora.setTextSize(16);
+        txtNovaHora.setPadding(20, 10, 20, 30);
+        txtNovaHora.setTextColor(Color.BLACK);
+
+        txtNovaData.setOnClickListener(view -> {
+            final Calendar c = Calendar.getInstance();
+            new DatePickerDialog(this, (view1, year, month, dayOfMonth) -> {
+                String dataSelecionada = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year);
+                txtNovaData.setText("Data: " + dataSelecionada);
+                txtNovaData.setTag(dataSelecionada);
+            }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
+        });
+
+        txtNovaHora.setOnClickListener(view -> {
+            final Calendar c = Calendar.getInstance();
+            new TimePickerDialog(this, (view12, hourOfDay, minute) -> {
+                String horaSelecionada = String.format("%02d:%02d", hourOfDay, minute);
+                txtNovaHora.setText("Hora: " + horaSelecionada);
+                txtNovaHora.setTag(horaSelecionada);
+            }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true).show();
+        });
+
+        LinearLayout layoutEdit = new LinearLayout(this);
+        layoutEdit.setOrientation(LinearLayout.VERTICAL);
+        layoutEdit.setPadding(50, 40, 50, 10);
+        layoutEdit.addView(txtNovaData);
+        layoutEdit.addView(txtNovaHora);
+
+        new AlertDialog.Builder(this)
+                .setTitle("Editar Consulta")
+                .setView(layoutEdit)
+                .setPositiveButton("Salvar", (dialog1, which1) -> {
+                    String novaData = (String) txtNovaData.getTag();
+                    String novaHora = (String) txtNovaHora.getTag();
+
+                    if (novaData == null || novaHora == null) {
+                        Toast.makeText(this, "Selecione a nova data e hora", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    try {
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                        Date novaDataHora = sdf.parse(novaData + " " + novaHora);
+                        if (novaDataHora.before(new Date())) {
+                            Toast.makeText(this, "A nova data e hora devem ser futuras.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        db.collection("consultas")
+                                .document(docId)
+                                .update("data", novaData, "hora", novaHora)
+                                .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(this, "Consulta atualizada", Toast.LENGTH_SHORT).show();
+                                    recreate();
+                                })
+                                .addOnFailureListener(e -> Toast.makeText(this, "Erro ao atualizar consulta", Toast.LENGTH_SHORT).show());
+                    } catch (Exception e) {
+                        Toast.makeText(this, "Formato de data/hora inválido", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
     }
 }

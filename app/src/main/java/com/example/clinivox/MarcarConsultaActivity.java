@@ -2,25 +2,22 @@ package com.example.clinivox;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.Toast;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Toast;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.widget.DatePicker;
-import android.widget.TimePicker;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,7 +28,7 @@ public class MarcarConsultaActivity extends AppCompatActivity {
     private EditText editHora;
     private Button btnConfirmar;
     private FirebaseFirestore db;
-    private String cpf;
+    private String cpfPaciente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +39,7 @@ public class MarcarConsultaActivity extends AppCompatActivity {
         editData = findViewById(R.id.editData);
         editHora = findViewById(R.id.editHora);
         btnConfirmar = findViewById(R.id.btnConfirmarConsulta);
-        cpf = getIntent().getStringExtra("cpf");  // Obtém o CPF passado
+        cpfPaciente = getIntent().getStringExtra("cpf");  // Obtém o CPF passado
         db = FirebaseFirestore.getInstance();
 
         // Configura o spinner de especialidades
@@ -51,50 +48,38 @@ public class MarcarConsultaActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerEspecialidade.setAdapter(adapter);
 
-        // Setar o clique para o campo de data
-        editData.setFocusable(false);  // Impede edição manual
+        // DatePicker
+        editData.setFocusable(false);
         editData.setOnClickListener(v -> {
-            // Obter a data atual
             Calendar calendar = Calendar.getInstance();
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            int y = calendar.get(Calendar.YEAR);
+            int m = calendar.get(Calendar.MONTH);
+            int d = calendar.get(Calendar.DAY_OF_MONTH);
 
-            // Exibir o DatePickerDialog
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year1, month1, dayOfMonth) -> {
-                // Setar a data escolhida no campo de texto
-                editData.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1);
-            }, year, month, day);
-
-            // Exibir o diálogo
-            datePickerDialog.show();
+            new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+                editData.setText(String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year));
+            }, y, m, d).show();
         });
 
-        // Setar o clique para o campo de hora
-        editHora.setFocusable(false);  // Impede edição manual
+        // TimePicker
+        editHora.setFocusable(false);
         editHora.setOnClickListener(v -> {
-            // Obter a hora atual
             Calendar calendar = Calendar.getInstance();
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int minute = calendar.get(Calendar.MINUTE);
+            int h = calendar.get(Calendar.HOUR_OF_DAY);
+            int min = calendar.get(Calendar.MINUTE);
 
-            // Exibir o TimePickerDialog
-            TimePickerDialog timePickerDialog = new TimePickerDialog(this, (view, hourOfDay, minute1) -> {
-                // Setar a hora escolhida no campo de texto
-                editHora.setText(String.format("%02d:%02d", hourOfDay, minute1));
-            }, hour, minute, true);
-
-            // Exibir o diálogo
-            timePickerDialog.show();
+            new TimePickerDialog(this, (view, hourOfDay, minute) -> {
+                editHora.setText(String.format("%02d:%02d", hourOfDay, minute));
+            }, h, min, true).show();
         });
 
-        // Ação ao clicar no botão de confirmar
+        // Confirmar consulta
         btnConfirmar.setOnClickListener(v -> {
             String especialidade = spinnerEspecialidade.getSelectedItem().toString();
             String data = editData.getText().toString().trim();
             String hora = editHora.getText().toString().trim();
-            String medico = gerarMedicoPorEspecialidade(especialidade);
             String local = "Clínica Central";
+            String crmMedico = gerarCrmPorEspecialidade(especialidade);
 
             // Validações
             if (data.isEmpty() || hora.isEmpty()) {
@@ -102,35 +87,33 @@ public class MarcarConsultaActivity extends AppCompatActivity {
                 return;
             }
 
-            // Validação de data e hora
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                sdf.setLenient(false);  // Garante que datas inválidas como 31/02/2025 sejam rejeitadas
+                sdf.setLenient(false);
                 Date dataHoraMarcada = sdf.parse(data + " " + hora);
-
                 Date agora = new Date();
+
                 if (dataHoraMarcada.before(agora)) {
                     Toast.makeText(this, "A data e hora devem ser futuras.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (cpf == null || cpf.isEmpty()) {
+                if (cpfPaciente == null || cpfPaciente.isEmpty()) {
                     Toast.makeText(this, "Erro: CPF não encontrado.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // Criar o mapa com os dados da consulta
+                // Montar mapa consulta com nova estrutura
                 Map<String, Object> consulta = new HashMap<>();
+                consulta.put("cpf_paciente", cpfPaciente);
                 consulta.put("especialidade", especialidade);
                 consulta.put("data", data);
                 consulta.put("hora", hora);
-                consulta.put("medico", medico);
                 consulta.put("local", local);
+                consulta.put("crm_medico", crmMedico);
 
-                // Salvar no Firestore
+                // Salvar na coleção "consultas" com ID auto gerado
                 db.collection("consultas")
-                        .document(cpf)
-                        .collection("agendadas")
                         .add(consulta)
                         .addOnSuccessListener(documentReference -> {
                             Toast.makeText(this, "Consulta marcada com sucesso!", Toast.LENGTH_SHORT).show();
@@ -155,14 +138,17 @@ public class MarcarConsultaActivity extends AppCompatActivity {
         });
     }
 
-    private String gerarMedicoPorEspecialidade(String especialidade) {
+    private String gerarCrmPorEspecialidade(String especialidade) {
         switch (especialidade) {
             case "Cardiologia":
-                return "Ana Castela";
+                return "CRM12345";  // CRM do Dr. Carlos
             case "Dermatologia":
-                return "João Antônio";
+                return "CRM67890";  // Exemplo de outro CRM
+            case "Pediatria":
+                return "CRM54321";  // Exemplo
+            case "Clínico Geral":
             default:
-                return "Davi Brito";
+                return "CRM00000";  // CRM genérico ou padrão
         }
     }
 }

@@ -49,7 +49,7 @@
         android:layout_centerHorizontal="true" />
 
     <!-- Texto abaixo do assistente -->
-    <TextView
+    <Button
         android:id="@+id/btnFalar"
         android:layout_below="@id/imgAssistente"
         android:layout_marginTop="8dp"

@@ -7,26 +7,27 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-//import ai.vapi.sdk.Vapi;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class PacienteActivity extends AppCompatActivity {
+public class PacienteActivity extends AppCompatActivity{
     TextView textNome;
     private Button btnConsultas;
     String cpf;
+    private Button btnFalar;
 
-    //private Vapi vapi;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();  // Firestore
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paciente);
-        //vapi = new Vapi("49ef0e94-198b-4fa0-961f-364461d1cda4"); // Substitua pela sua chave de API do Vapi
+
+        btnFalar = findViewById(R.id.btnFalar);
+        btnConsultas = findViewById(R.id.btnConsultas);
+        textNome = findViewById(R.id.textNomePaciente);
+
         cpf = getIntent().getStringExtra("identificador");
 
-        btnConsultas = findViewById(R.id.btnConsultas);
         btnConsultas.setOnClickListener(v -> {
             Intent intent = new Intent(this, ConsultasActivity.class);
             intent.putExtra("cpf", cpf);
@@ -39,16 +40,15 @@ public class PacienteActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-
-        Button btnFalar = findViewById(R.id.btnFalar); // seu botão
         btnFalar.setOnClickListener(v -> {
-           // vapi.start("YOUR_ASSISTANT_ID"); // Substitua pelo ID da sua IA no Vapi
+
         });
 
-        textNome = findViewById(R.id.textNomePaciente);
+        carregarDadosPaciente();
+    }
 
-        // 🔽 Consulta no Firestore para buscar o nome do paciente
-        db.collection("Pacientes").document(cpf)
+    private void carregarDadosPaciente() {
+        db.collection("pacientes").document(cpf)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
@@ -64,4 +64,6 @@ public class PacienteActivity extends AppCompatActivity {
                     Toast.makeText(this, "Erro ao buscar dados do paciente", Toast.LENGTH_SHORT).show();
                 });
     }
+
+
 }

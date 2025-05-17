@@ -10,7 +10,6 @@ import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.DocumentSnapshot;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnEntrar, btnSouMedico, btnSouPaciente;
     boolean isMedicoSelecionado = true;
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance(); // Instância do Firestore
+    FirebaseFirestore db = FirebaseFirestore.getInstance(); // Firestore instance
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +33,12 @@ public class MainActivity extends AppCompatActivity {
         btnSouPaciente = findViewById(R.id.btnSouPaciente);
 
         btnEntrar.setOnClickListener(v -> {
-            String identificador = editTextCrmOuCpf.getText().toString();
+            String identificador = editTextCrmOuCpf.getText().toString().trim();
             String senha = editTextSenha.getText().toString();
 
             if (identificador.isEmpty() || senha.isEmpty()) {
                 Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
             } else {
-                // Aqui você verifica no Firestore se o CRM ou CPF já existe
                 verificarUsuarioNoFirestore(identificador, senha);
             }
         });
@@ -62,38 +60,33 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Função para verificar se o usuário existe no Firestore
-    private void verificarUsuarioNoFirestore(String identificador, String senha) {
-        String colecao = isMedicoSelecionado ? "Medicos" : "Pacientes"; // Definir a coleção com base na escolha do usuário
+    // Verifica se o usuário existe no Firestore
+    private void verificarUsuarioNoFirestore(String identificador, String senhaDigitada) {
+        String colecao = isMedicoSelecionado ? "medicos" : "pacientes"; // nomes em minúsculo (Firestore padrão)
 
         db.collection(colecao)
-                .document(identificador) // Usando CRM ou CPF como ID do documento
+                .document(identificador) // ID é CPF ou CRM
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
-                        // Usuário encontrado, verificar a senha (opcional se for Firebase Auth)
                         String senhaSalva = documentSnapshot.getString("senha");
 
-                        if (senha.equals(senhaSalva)) {
-                            // Login bem-sucedido
-                            Intent intent;
-                            if (isMedicoSelecionado) {
-                                intent = new Intent(this, MedicoActivity.class);
-                            } else {
-                                intent = new Intent(this, PacienteActivity.class);
-
-                            }
-                            intent.putExtra("identificador", identificador); // pode ser o CPF ou CRM
+                        if (senhaSalva != null && senhaSalva.equals(senhaDigitada)) {
+                            Intent intent = new Intent(this,
+                                    isMedicoSelecionado ? MedicoActivity.class : PacienteActivity.class);
+                            intent.putExtra("identificador", identificador);
                             startActivity(intent);
                             finish();
                         } else {
                             Toast.makeText(this, "Senha incorreta", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        // Usuário não encontrado
                         Toast.makeText(this, "Usuário não encontrado", Toast.LENGTH_SHORT).show();
                     }
                 })
-                .addOnFailureListener(e -> Toast.makeText(this, "Erro ao verificar usuário", Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Erro ao acessar o banco de dados", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                });
     }
 }
