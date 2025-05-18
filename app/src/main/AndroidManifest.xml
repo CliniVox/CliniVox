@@ -29,7 +29,8 @@
         <activity android:name=".ConsultasActivity" />
         <activity android:name=".MarcarConsultaActivity" />
         <activity android:name=".SobreNosActivity" />
-
+        <activity android:name=".RecuperarSenhaActivity" />
+        <activity android:name=".CadastroActivity" />
 
 
 

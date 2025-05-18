@@ -29,12 +29,24 @@ public class MarcarConsultaActivity extends AppCompatActivity {
     private Button btnConfirmar;
     private FirebaseFirestore db;
     private String cpfPaciente;
+    private Spinner spinnerLocal;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_marcar_consulta);
-
+        spinnerLocal = findViewById(R.id.spinnerLocal);
+        String[] locais = {
+                "Hospital São Lucas",
+                "Hospital Vida e Saúde",
+                "Clínica Central",
+                "Unidade Vila Mariana",
+                "Hospital Coração Amigo"
+        };
+        ArrayAdapter<String> localAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, locais);
+        localAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerLocal.setAdapter(localAdapter);
         spinnerEspecialidade = findViewById(R.id.spinnerEspecialidade);
         editData = findViewById(R.id.editData);
         editHora = findViewById(R.id.editHora);
@@ -78,7 +90,7 @@ public class MarcarConsultaActivity extends AppCompatActivity {
             String especialidade = spinnerEspecialidade.getSelectedItem().toString();
             String data = editData.getText().toString().trim();
             String hora = editHora.getText().toString().trim();
-            String local = "Clínica Central";
+            String local = spinnerLocal.getSelectedItem().toString();
             String crmMedico = gerarCrmPorEspecialidade(especialidade);
 
             // Validações

@@ -73,21 +73,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="16dp"
-            android:gravity="center_vertical">
-
-            <CheckBox
-                android:id="@+id/checkboxManterConectado"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="#2196F3"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Manter-me conectado"
-                android:textSize="12sp"
-                android:textColor="#333"/>
-        </LinearLayout>
+            android:gravity="center_vertical"/>
 
         <Button
             android:id="@+id/btnEntrar"
@@ -100,13 +86,29 @@
             android:layout_marginTop="24dp"/>
 
         <TextView
+            android:id="@+id/textViewEsqueceuSenha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Esqueceu a senha?\nNão tem conta?"
-            android:textAlignment="center"
+            android:text="Esqueceu a senha?"
+            android:textColor="#2196F3"
             android:textSize="12sp"
-            android:textColor="#555"
-            android:layout_marginTop="16dp"/>
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/textViewCriarConta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Não tem conta?"
+            android:textColor="#2196F3"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:focusable="true" />
+
 
         <LinearLayout
             android:layout_width="match_parent"

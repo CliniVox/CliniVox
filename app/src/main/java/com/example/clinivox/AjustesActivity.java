@@ -13,21 +13,26 @@ public class AjustesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajustes);
 
-        // Botão voltar
         findViewById(R.id.btnVoltar).setOnClickListener(v -> finish());
 
-        // Botão Sobre Nós
         findViewById(R.id.btnSobreNos).setOnClickListener(v -> {
             Intent intent = new Intent(this, SobreNosActivity.class);
             startActivity(intent);
         });
 
-
-        // Botão Sair
         findViewById(R.id.btnSair).setOnClickListener(v -> {
-            Intent i = new Intent(this, MainActivity.class); // ou SplashActivity, dependendo do seu fluxo
+            // Comentado: limpar preferências de manter conectado
+            // getSharedPreferences("loginPrefs", MODE_PRIVATE)
+            //         .edit()
+            //         .clear()
+            //         .apply();
+
+            Toast.makeText(this, "Você saiu da conta", Toast.LENGTH_SHORT).show();
+
+            Intent i = new Intent(this, MainActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
+            finish();
         });
     }
 }
