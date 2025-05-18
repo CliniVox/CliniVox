@@ -19,6 +19,7 @@ public class PacienteActivity extends AppCompatActivity{
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Button btnDesligar;
     private boolean isAssistantActive = false;
+    private String nomePaciente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,8 @@ public class PacienteActivity extends AppCompatActivity{
 
         cpf = getIntent().getStringExtra("identificador");
 
+        carregarDadosPaciente();
+
         btnConsultas.setOnClickListener(v -> {
             Intent intent = new Intent(this, ConsultasActivity.class);
             intent.putExtra("cpf", cpf);
@@ -47,10 +50,9 @@ public class PacienteActivity extends AppCompatActivity{
         });
 
         btnFalar.setOnClickListener(v -> {
-            //String nomePaciente = nome; // ou pegue de onde quiser
             vapiHelper.startAssistant(
                     "a9cd3f10-031a-4dd5-b7f5-dc27ccc0bbd7",
-                    //nome,
+                    nomePaciente,
                     new OnAssistantSuccess() {
                         @Override
                         public void onSuccess() {
@@ -72,18 +74,14 @@ public class PacienteActivity extends AppCompatActivity{
 
 
         btnDesligar.setOnClickListener(v -> {
-            // Aqui você deve chamar o método para parar a assistente na sua classe VapiHelper
-            vapiHelper.stopAssistant();  // Vou mostrar essa função abaixo
+
+            vapiHelper.stopAssistant();
             Toast.makeText(PacienteActivity.this, "Assistente desligado", Toast.LENGTH_SHORT).show();
             isAssistantActive = false;
             btnDesligar.setVisibility(View.GONE);
             btnFalar.setVisibility(View.VISIBLE);
         });
 
-
-
-
-        carregarDadosPaciente();
     }
 
     private void carregarDadosPaciente() {
@@ -93,6 +91,7 @@ public class PacienteActivity extends AppCompatActivity{
                     if (documentSnapshot.exists()) {
                         String nome = documentSnapshot.getString("nome");
                         textNome.setText("Olá, " + nome + "!");
+                        nomePaciente = documentSnapshot.getString("nome");
                     } else {
                         textNome.setText("Olá, paciente!");
                         Toast.makeText(this, "Paciente não encontrado", Toast.LENGTH_SHORT).show();

@@ -21,7 +21,7 @@ class VapiHelper(private val context: Context, private val lifecycle: Lifecycle)
 
     fun startAssistant(
         assistantId: String,
-        //clienteNome: String,
+        clienteNome: String,
         onSuccess: OnAssistantSuccess,
         onFailure: OnAssistantFailure
     ) {
@@ -29,8 +29,9 @@ class VapiHelper(private val context: Context, private val lifecycle: Lifecycle)
             try {
                 vapi.start(
                     assistantId = assistantId,
-                    metadata = mapOf("nome_cliente" to "caik"),
-                    assistantOverrides = mapOf()
+                    assistantOverrides = mapOf(
+                        "variableValues" to mapOf("nome_cliente" to clienteNome)
+                    )
                 )
                 onSuccess.onSuccess()
             } catch (e: Throwable) {
