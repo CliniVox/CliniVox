@@ -2,103 +2,176 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:padding="24dp">
+    android:background="@drawable/bg_gradient"
+    android:padding="32dp"
+    android:fillViewport="true">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
-        <!-- Botão voltar -->
-        <TextView
-            android:id="@+id/btnVoltar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="← VOLTAR"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:textSize="14sp" />
-
+        <!-- Botão Voltar -->
 
         <!-- Título -->
         <TextView
+            android:id="@+id/btnVoltar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="sans-serif-medium"
+            android:text="← VOLTAR"
+            android:textColor="#BBDEFB"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/tvTitulo"
-            android:layout_below="@id/btnVoltar"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sobre nós"
-            android:textSize="28sp"
+            android:textColor="#FFFFFF"
+            android:textSize="32sp"
             android:textStyle="bold"
-            android:textColor="#000000" />
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginBottom="24dp" />
 
-        <!-- Conteúdo -->
-        <LinearLayout
-            android:id="@+id/conteudo"
-            android:layout_below="@id/tvTitulo"
-            android:layout_marginTop="24dp"
+        <!-- Seção: Introdução -->
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="🧠 O que é o CliniVox?"
+            android:textColor="#B3E5FC"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp" />
 
-            <!-- Descrição -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="🧠 *CliniVox* é um assistente virtual de saúde, desenvolvido para ajudar pacientes e médicos a organizarem consultas de forma prática e por comandos de voz."
-                android:textColor="#000000"
-                android:textSize="14sp"
-                android:layout_marginBottom="16dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CliniVox é um assistente virtual de saúde, desenvolvido para ajudar pacientes e médicos a organizarem consultas de forma prática e por comandos de voz."
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif"
+            android:layout_marginBottom="16dp" />
 
-            <!-- Missão -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="🩺 *Nossa missão:*\nTornar o cuidado com a saúde mais acessível, eficiente e humanizado por meio da tecnologia."
-                android:textColor="#000000"
-                android:textSize="14sp"
-                android:layout_marginBottom="16dp" />
+        <!-- Seção: Missão -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🩺 Nossa missão"
+            android:textColor="#B3E5FC"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp" />
 
-            <!-- Funcionalidades -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="🔍 *Funcionalidades:*\n• Assistente por voz (IA VAPLAI integrada);\n• Marcação de consultas;\n• Visualização da agenda médica;\n• Comunicação clara entre paciente e clínica"
-                android:textColor="#000000"
-                android:textSize="14sp"
-                android:layout_marginBottom="16dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tornar o cuidado com a saúde mais acessível, eficiente e humanizado por meio da tecnologia."
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif"
+            android:layout_marginBottom="16dp" />
 
-            <!-- Privacidade -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="🔒 *Privacidade:*\nSeus dados são protegidos com segurança e criptografia. Tudo o que você diz ou cadastra é usado apenas para sua experiência no app."
-                android:textColor="#000000"
-                android:textSize="14sp"
-                android:layout_marginBottom="16dp" />
+        <!-- Seção: Funcionalidades -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🔍 Funcionalidades"
+            android:textColor="#B3E5FC"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp" />
 
-            <!-- Créditos -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="• Assistente por voz\n• Marcação de consultas\n• Visualização da agenda médica\n• Comunicação clara entre paciente e clínica"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Seção: Privacidade -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🔒 Privacidade"
+            android:textColor="#B3E5FC"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seus dados são protegidos com segurança e criptografia. Tudo o que você diz ou cadastra é usado apenas para sua experiência no app."
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif"
+            android:layout_marginBottom="16dp" />
+
+
+        <!-- Créditos -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Desenvolvido por:"
+            android:textSize="14sp"
+            android:textColor="#B3E5FC"
+            android:fontFamily="sans-serif"
+            android:layout_marginTop="32dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp"
+            android:gravity="center_vertical">
+
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Desenvolvido por:\n\n• Caik GITHUB\n• Igor GITHUB"
-                android:textColor="#000000"
+                android:text="Caik GITHUB"
+                android:textColor="#BBDEFB"
                 android:textSize="14sp"
-                android:layout_marginBottom="32dp" />
+                android:layout_marginEnd="24dp"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Igor GITHUB"
+                android:textColor="#BBDEFB"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"/>
         </LinearLayout>
 
         <!-- Rodapé -->
         <TextView
             android:id="@+id/tvRodape"
-            android:layout_below="@id/conteudo"
-            android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CliniVox"
             android:textStyle="bold"
             android:textSize="24sp"
-            android:textColor="#000000"
-            android:layout_marginTop="32dp" />
-    </RelativeLayout>
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginTop="48dp" />
+    </LinearLayout>
 </ScrollView>

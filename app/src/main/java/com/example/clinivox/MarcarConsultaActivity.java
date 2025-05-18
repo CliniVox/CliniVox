@@ -139,7 +139,7 @@ public class MarcarConsultaActivity extends AppCompatActivity {
         });
 
         // Botões de navegação
-        ImageView btnVoltar = findViewById(R.id.btnVoltar);
+        /*ImageView btnVoltar = findViewById(R.id.btnVoltar);
         ImageView btnConfig = findViewById(R.id.btnConfig);
 
         btnVoltar.setOnClickListener(v -> finish());
@@ -148,8 +148,8 @@ public class MarcarConsultaActivity extends AppCompatActivity {
             Intent intent = new Intent(MarcarConsultaActivity.this, AjustesActivity.class);
             startActivity(intent);
         });
+*/
     }
-
     private String gerarCrmPorEspecialidade(String especialidade) {
         switch (especialidade) {
             case "Cardiologia":

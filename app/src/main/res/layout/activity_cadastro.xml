@@ -1,22 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
-    android:background="#F5F5F5">
+    android:background="@drawable/bg_gradient"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:padding="32dp"
         android:gravity="center_horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cadastro"
-            android:textSize="24sp"
+            android:textSize="32sp"
+            android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:layout_marginBottom="24dp"/>
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginTop="56dp"
+            android:layout_marginBottom="32dp" />
 
         <RadioGroup
             android:id="@+id/radioGroupTipo"
@@ -29,55 +35,168 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Médico"
-                android:checked="true"/>
+                android:textColor="#FFFFFF"
+                android:fontFamily="sans-serif"
+                android:buttonTint="#BBDEFB"
+                android:checked="true" />
 
             <RadioButton
                 android:id="@+id/radioPaciente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Paciente"
-                android:layout_marginStart="16dp"/>
+                android:textColor="#FFFFFF"
+                android:fontFamily="sans-serif"
+                android:buttonTint="#BBDEFB"
+                android:layout_marginStart="24dp" />
         </RadioGroup>
 
-        <EditText
-            android:id="@+id/editTextIdentificador"
+        <!-- Campo CRM/CPF -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="CRM"
-            android:inputType="text"
-            android:layout_marginTop="16dp"/>
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:elevation="6dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/rounded_corners">
 
-        <EditText
-            android:id="@+id/editTextNome"
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_menu_info_details"
+                app:tint="#42A5F5" />
+
+            <EditText
+                android:id="@+id/editTextIdentificador"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="CRM ou CPF"
+                android:background="@android:color/transparent"
+                android:textColor="#212121"
+                android:textColorHint="#90A4AE"
+                android:inputType="text"
+                android:paddingStart="12dp"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif" />
+        </LinearLayout>
+
+        <!-- Campo Nome -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nome"
-            android:inputType="text"
-            android:layout_marginTop="16dp"/>
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:elevation="6dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/rounded_corners">
 
-        <EditText
-            android:id="@+id/editTextEspecialidade"
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_menu_edit"
+                app:tint="#42A5F5" />
+
+            <EditText
+                android:id="@+id/editTextNome"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Nome"
+                android:background="@android:color/transparent"
+                android:textColor="#212121"
+                android:textColorHint="#90A4AE"
+                android:inputType="text"
+                android:paddingStart="12dp"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif" />
+        </LinearLayout>
+
+        <!-- Campo Especialidade -->
+        <LinearLayout
+            android:id="@+id/layoutEspecialidade"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Especialidade"
-            android:inputType="text"
-            android:layout_marginTop="16dp"/>
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:elevation="6dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/rounded_corners">
 
-        <EditText
-            android:id="@+id/editTextSenha"
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_menu_agenda"
+                app:tint="#42A5F5" />
+
+            <EditText
+                android:id="@+id/editTextEspecialidade"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Especialidade"
+                android:background="@android:color/transparent"
+                android:textColor="#212121"
+                android:textColorHint="#90A4AE"
+                android:inputType="text"
+                android:paddingStart="12dp"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif" />
+        </LinearLayout>
+
+        <!-- Campo Senha -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Senha"
-            android:inputType="textPassword"
-            android:layout_marginTop="16dp"/>
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:elevation="6dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/rounded_corners">
 
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_lock_lock"
+                app:tint="#42A5F5" />
+
+            <EditText
+                android:id="@+id/editTextSenha"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Senha"
+                android:background="@android:color/transparent"
+                android:textColor="#212121"
+                android:textColorHint="#90A4AE"
+                android:inputType="textPassword"
+                android:paddingStart="12dp"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif" />
+        </LinearLayout>
+
+        <!-- Botão Cadastrar -->
         <Button
             android:id="@+id/btnCadastrar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cadastrar"
-            android:layout_marginTop="24dp"
-            android:backgroundTint="#42A5F5"
-            android:textColor="#fff"/>
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="CADASTRAR"
+            android:textAllCaps="true"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/btn_gradient_rounded"
+            android:elevation="8dp"
+            android:layout_marginTop="32dp"
+            android:stateListAnimator="@null" />
     </LinearLayout>
 </ScrollView>

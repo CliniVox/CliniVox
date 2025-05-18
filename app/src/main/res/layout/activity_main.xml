@@ -1,170 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    android:background="@drawable/bg_gradient"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp"
+        android:padding="32dp"
         android:gravity="center_horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bem-vindo ao"
-            android:textSize="24sp"
-            android:textColor="#333"
-            android:layout_marginTop="48dp"/>
+            android:textSize="26sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-light"
+            android:layout_marginTop="56dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CliniVox"
             android:textStyle="bold"
-            android:textSize="32sp"
-            android:textColor="#333"
-            android:layout_marginTop="8dp"/>
+            android:textSize="42sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginTop="4dp"
+            android:letterSpacing="0.1" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sua saúde, na sua voz."
-            android:textSize="14sp"
-            android:textColor="#888"
-            android:layout_marginTop="8dp"/>
-
-        <EditText
-            android:id="@+id/editTextCrmOuCpf"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="CRM"
-            android:layout_marginTop="32dp"
-            android:background="@android:color/transparent"
-            android:textColorHint="#888"
-            android:textColor="#000"
-            android:inputType="text"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000" />
-
-        <EditText
-            android:id="@+id/editTextSenha"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Senha"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/transparent"
-            android:textColorHint="#888"
-            android:textColor="#000"
-            android:inputType="textPassword"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000" />
+            android:textSize="16sp"
+            android:textColor="#B3E5FC"
+            android:fontFamily="sans-serif"
+            android:layout_marginTop="8dp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
             android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:gravity="center_vertical"/>
+            android:elevation="6dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp"
+            android:clipToPadding="false"
+            android:layout_marginHorizontal="0dp"
+            android:background="@drawable/rounded_corners">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_menu_info_details"
+                app:tint="#42A5F5" />
+
+            <EditText
+                android:id="@+id/editTextCrmOuCpf"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="CRM ou CPF"
+                android:background="@android:color/transparent"
+                android:textColor="#212121"
+                android:textColorHint="#90A4AE"
+                android:inputType="text"
+                android:paddingStart="12dp"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:elevation="6dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/rounded_corners">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_lock_lock"
+                app:tint="#42A5F5" />
+
+            <EditText
+                android:id="@+id/editTextSenha"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Senha"
+                android:background="@android:color/transparent"
+                android:textColor="#212121"
+                android:textColorHint="#90A4AE"
+                android:inputType="textPassword"
+                android:paddingStart="12dp"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnEntrar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
             android:text="ENTRAR"
             android:textAllCaps="true"
-            android:backgroundTint="#42A5F5"
-            android:textColor="#fff"
-            android:layout_marginTop="24dp"/>
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/btn_gradient_rounded"
+            android:elevation="8dp"
+            android:layout_marginTop="24dp"
+            android:stateListAnimator="@null" />
 
         <TextView
             android:id="@+id/textViewEsqueceuSenha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Esqueceu a senha?"
-            android:textColor="#2196F3"
-            android:textSize="12sp"
+            android:textColor="#BBDEFB"
+            android:textSize="14sp"
             android:textStyle="bold"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:clickable="true"
-            android:focusable="true" />
+            android:focusable="true"
+            android:background="?android:attr/selectableItemBackground" />
 
         <TextView
             android:id="@+id/textViewCriarConta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Não tem conta?"
-            android:textColor="#2196F3"
-            android:textSize="12sp"
+            android:textColor="#BBDEFB"
+            android:textSize="14sp"
             android:textStyle="bold"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:clickable="true"
-            android:focusable="true" />
-
+            android:focusable="true"
+            android:background="?android:attr/selectableItemBackground" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="24dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginTop="36dp">
 
             <Button
                 android:id="@+id/btnSouMedico"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/botao_desmarcado"
-                android:padding="10dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="48dp"
                 android:text="Sou médico"
-                android:textColor="#000" />
+                android:textColor="#42A5F5"
+                android:background="@drawable/botao_toggle_off"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginEnd="8dp" />
 
             <Button
                 android:id="@+id/btnSouPaciente"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="48dp"
                 android:text="Sou paciente"
-                android:textColor="#000"
-                android:background="@drawable/botao_desmarcado"
-                android:padding="10dp"/>
+                android:textColor="#42A5F5"
+                android:background="@drawable/botao_toggle_off"
+                android:fontFamily="sans-serif-medium" />
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Desenvolvido por:"
-            android:layout_marginTop="48dp"
-            android:textSize="12sp"
-            android:textColor="#777"/>
+            android:layout_marginTop="56dp"
+            android:textSize="14sp"
+            android:textColor="#90A4AE"
+            android:fontFamily="sans-serif" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="4dp">
+            android:layout_marginTop="6dp"
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Caik GITHUB"
-                android:textColor="#2196F3"
-                android:textSize="12sp"
-                android:layout_marginEnd="16dp"/>
+                android:textColor="#BBDEFB"
+                android:textSize="14sp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Igor GITHUB"
-                android:textColor="#2196F3"
-                android:textSize="12sp"/>
+                android:textColor="#BBDEFB"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"/>
         </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="8dp"
+    android:layout_marginHorizontal="4dp"
+    card_view:cardCornerRadius="16dp"
+    card_view:cardElevation="8dp"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="#CCFFFFFF"
+        android:clipToPadding="false">
+
+        <TextView
+            android:id="@+id/textEspecialidade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Especialidade"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="#1565C0"
+            android:fontFamily="sans-serif-medium" />
+
+        <TextView
+            android:id="@+id/textDataHora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data e Hora"
+            android:textSize="16sp"
+            android:textColor="#90CAF9"
+            android:layout_marginTop="6dp"
+            android:fontFamily="sans-serif" />
+
+        <TextView
+            android:id="@+id/textPaciente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Paciente: Nome do Paciente"
+            android:textSize="16sp"
+            android:textColor="#90CAF9"
+            android:layout_marginTop="6dp"
+            android:fontFamily="sans-serif" />
+
+        <TextView
+            android:id="@+id/textLocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Local: Clínica Central"
+            android:textSize="16sp"
+            android:textColor="#90CAF9"
+            android:layout_marginTop="6dp"
+            android:fontFamily="sans-serif" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

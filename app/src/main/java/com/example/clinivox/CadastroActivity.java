@@ -12,6 +12,7 @@ public class CadastroActivity extends AppCompatActivity {
     RadioGroup radioGroupTipo;
     EditText editTextNome, editTextSenha, editTextIdentificador, editTextEspecialidade;
     Button btnCadastrar;
+    LinearLayout layoutEspecialidade;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     boolean isMedico = true;
@@ -21,6 +22,7 @@ public class CadastroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
 
+        layoutEspecialidade = findViewById(R.id.layoutEspecialidade);
         radioGroupTipo = findViewById(R.id.radioGroupTipo);
         editTextNome = findViewById(R.id.editTextNome);
         editTextSenha = findViewById(R.id.editTextSenha);
@@ -31,7 +33,7 @@ public class CadastroActivity extends AppCompatActivity {
         radioGroupTipo.setOnCheckedChangeListener((group, checkedId) -> {
             isMedico = checkedId == R.id.radioMedico;
             editTextIdentificador.setHint(isMedico ? "CRM" : "CPF");
-            editTextEspecialidade.setVisibility(isMedico ? View.VISIBLE : View.GONE);
+            layoutEspecialidade.setVisibility(isMedico ? View.VISIBLE : View.GONE);
         });
 
         btnCadastrar.setOnClickListener(v -> {

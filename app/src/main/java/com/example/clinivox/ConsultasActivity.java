@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.view.LayoutInflater;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -83,51 +84,20 @@ public class ConsultasActivity extends AppCompatActivity {
     }
 
     private void adicionarCardConsulta(String especialidade, String medico, String dataHora, String local, String docId) {
-        androidx.cardview.widget.CardView card = new androidx.cardview.widget.CardView(this);
-        card.setCardElevation(8);
-        card.setRadius(20);
-        card.setUseCompatPadding(true);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View cardView = inflater.inflate(R.layout.consulta_card, consultasContainer, false);
 
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setPadding(40, 40, 40, 40);
-        layout.setBackgroundColor(Color.WHITE);
+        TextView txtEspecialidade = cardView.findViewById(R.id.textEspecialidade);
+        TextView txtMedico = cardView.findViewById(R.id.textPaciente); // Ou crie um campo médico no XML
+        TextView txtDataHora = cardView.findViewById(R.id.textDataHora);
+        TextView txtLocal = cardView.findViewById(R.id.textLocal);
 
-        TextView txtEspecialidade = new TextView(this);
-        txtEspecialidade.setText("Especialidade: " + especialidade);
-        txtEspecialidade.setTextSize(18);
-        txtEspecialidade.setTypeface(null, Typeface.BOLD);
-        txtEspecialidade.setTextColor(Color.BLACK);
+        txtEspecialidade.setText(especialidade);
+        txtMedico.setText("Médico: " + medico);  // Se quiser "Médico: " antes, concatene aqui
+        txtDataHora.setText(dataHora);
+        txtLocal.setText(local);
 
-        TextView txtMedico = new TextView(this);
-        txtMedico.setText("Médico: " + medico);
-        txtMedico.setTextSize(16);
-        txtMedico.setTextColor(Color.DKGRAY);
-
-        TextView txtDataHora = new TextView(this);
-        txtDataHora.setText("Data e Hora: " + dataHora);
-        txtDataHora.setTextSize(16);
-        txtDataHora.setTextColor(Color.DKGRAY);
-
-        TextView txtLocal = new TextView(this);
-        txtLocal.setText("Local: " + local);
-        txtLocal.setTextSize(16);
-        txtLocal.setTextColor(Color.DKGRAY);
-
-        layout.addView(txtEspecialidade);
-        layout.addView(txtMedico);
-        layout.addView(txtDataHora);
-        layout.addView(txtLocal);
-
-        card.addView(layout);
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0, 0, 0, 40);
-        card.setLayoutParams(params);
-
-        card.setOnClickListener(v -> {
+        cardView.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(ConsultasActivity.this);
             builder.setTitle("O que deseja fazer?");
             builder.setItems(new CharSequence[]{"Editar", "Cancelar consulta"}, (dialog, which) -> {
@@ -147,8 +117,9 @@ public class ConsultasActivity extends AppCompatActivity {
             builder.show();
         });
 
-        consultasContainer.addView(card);
+        consultasContainer.addView(cardView);
     }
+
 
     private void editarConsulta(String docId) {
         final TextView txtNovaData = new TextView(this);

@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,11 +20,14 @@ public class MedicoActivity extends AppCompatActivity {
     TextView tvNome;
     FirebaseFirestore db;
     String crmMedicoAtual;
-
+    LinearLayout layoutConsultas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medico);
+
+        layoutConsultas = findViewById(R.id.layoutConsultas);
+
 
         db = FirebaseFirestore.getInstance();
 
@@ -76,7 +80,7 @@ public class MedicoActivity extends AppCompatActivity {
                 .whereEqualTo("crm_medico", crmMedico)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
-                    LinearLayout layoutConsultas = findViewById(R.id.layoutConsultas);
+                    //LinearLayout layoutConsultas = findViewById(R.id.layoutConsultas);
                     layoutConsultas.removeAllViews();
 
                     for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
@@ -109,53 +113,26 @@ public class MedicoActivity extends AppCompatActivity {
     }
 
     private void adicionarCardConsulta(String especialidade, String paciente, String data, String hora, String local) {
-        androidx.cardview.widget.CardView card = new androidx.cardview.widget.CardView(this);
-        card.setCardElevation(8);
-        card.setRadius(20);
-        card.setUseCompatPadding(true);
+        // Infla o layout do card personalizado
+        View cardView = getLayoutInflater().inflate(R.layout.card_consulta_medico, null);
 
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setPadding(40, 40, 40, 40);
-        layout.setBackgroundColor(Color.WHITE);
+        TextView textEspecialidade = cardView.findViewById(R.id.textEspecialidade);
+        TextView textPaciente = cardView.findViewById(R.id.textPaciente);
+        TextView textDataHora = cardView.findViewById(R.id.textDataHora);
+        TextView textLocal = cardView.findViewById(R.id.textLocal);
 
-        TextView txtEspecialidade = new TextView(this);
-        txtEspecialidade.setText("Especialidade: " + especialidade);
-        txtEspecialidade.setTextSize(18);
-        txtEspecialidade.setTypeface(null, Typeface.BOLD);
-        txtEspecialidade.setTextColor(Color.BLACK);
-
-        TextView txtPaciente = new TextView(this);
-        txtPaciente.setText("Paciente: " + paciente);
-        txtPaciente.setTextSize(16);
-        txtPaciente.setTextColor(Color.DKGRAY);
-
-        TextView txtDataHora = new TextView(this);
-        txtDataHora.setText("Data e Hora: " + data + " - " + hora );
-        txtDataHora.setTextSize(16);
-        txtDataHora.setTextColor(Color.DKGRAY);
-
-        TextView txtLocal = new TextView(this);
-        txtLocal.setText("Local: " + local);
-        txtLocal.setTextSize(16);
-        txtLocal.setTextColor(Color.DKGRAY);
-
-        layout.addView(txtEspecialidade);
-        layout.addView(txtPaciente);
-        layout.addView(txtDataHora);
-        layout.addView(txtLocal);
-
-        card.addView(layout);
+        textEspecialidade.setText("Especialidade: " + especialidade);
+        textPaciente.setText("Paciente: " + paciente);
+        textDataHora.setText("Data e Hora: " + data + " - " + hora);
+        textLocal.setText("Local: " + local);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0, 0, 0, 40);
-        card.setLayoutParams(params);
+        params.setMargins(0, 0, 0, 20);
+        cardView.setLayoutParams(params);
 
-        LinearLayout layoutConsultas = findViewById(R.id.layoutConsultas);
-        if (layoutConsultas != null) {
-            layoutConsultas.addView(card);
-        }
+        layoutConsultas.addView(cardView);
     }
+
 }

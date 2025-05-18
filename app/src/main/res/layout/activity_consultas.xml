@@ -1,77 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layoutConsultas"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    android:background="#FFFFFF"
-    tools:context=".ConsultasActivity">
+    android:orientation="vertical"
+    android:background="@drawable/bg_gradient"
+    android:padding="32dp">
 
-    <!-- Voltar -->
-    <ImageView
-        android:id="@+id/btnVoltar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_arrow_back"
-        android:contentDescription="Voltar" />
+    <!-- Botão Voltar no topo esquerdo -->
+<ImageView
+android:id="@+id/btnVoltar"
+android:layout_width="32dp"
+android:layout_height="32dp"
+android:src="@drawable/ic_arrow_back"
+android:tint="#FFFFFF"
+android:contentDescription="Voltar"
+android:layout_gravity="start" />
 
-    <!-- Título -->
-    <TextView
-        android:id="@+id/textTitulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnVoltar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="Consultas"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:textColor="#000000" />
+    <!-- Título centralizado -->
+<TextView
+android:id="@+id/textTitulo"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Consultas"
+android:textSize="36sp"
+android:textStyle="bold"
+android:textColor="#FFFFFF"
+android:fontFamily="sans-serif-medium"
+android:layout_gravity="center_horizontal"
+android:layout_marginTop="24dp"
+android:letterSpacing="0.05" />
 
-    <!-- Lista de consultas -->
-    <ScrollView
-        android:id="@+id/scrollViewConsultas"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@id/textTitulo"
-        android:layout_above="@id/btnMarcarConsulta"
-        android:layout_marginTop="20dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true">
+    <!-- Lista de consultas em Scroll -->
+<ScrollView
+android:id="@+id/scrollViewConsultas"
+android:layout_width="match_parent"
+android:layout_height="0dp"
+android:layout_weight="1"
+android:layout_marginTop="24dp"
+android:overScrollMode="ifContentScrolls"
+android:clipToPadding="false">
 
-        <LinearLayout
-            android:id="@+id/consultasContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="20dp" />
-    </ScrollView>
+<LinearLayout
+    android:id="@+id/consultasContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" />
+</ScrollView>
 
-    <!-- Botão Marcar Consulta -->
-    <TextView
-        android:id="@+id/btnMarcarConsulta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="80dp"
-        android:text="+ Marcar Consulta"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="#000000" />
+    <!-- Botão + Marcar Consulta com gradiente -->
+<Button
+android:id="@+id/btnMarcarConsulta"
+android:layout_width="match_parent"
+android:layout_height="56dp"
+android:text="+ Marcar Consulta"
+android:textAllCaps="true"
+android:textSize="18sp"
+android:textColor="#FFFFFF"
+android:fontFamily="sans-serif-medium"
+android:background="@drawable/btn_gradient_rounded"
+android:elevation="8dp"
+android:layout_marginTop="20dp"
+android:stateListAnimator="@null" />
 
-    <!-- Rodapé -->
-    <TextView
-        android:id="@+id/textRodape"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="CliniVox"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="#000000"
-        android:layout_marginBottom="20dp" />
-
-</RelativeLayout>
+    <!-- Rodapé discreto -->
+<TextView
+android:id="@+id/textRodape"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="CliniVox"
+android:textSize="20sp"
+android:textStyle="bold"
+android:textColor="#B3E5FC"
+android:fontFamily="sans-serif-light"
+android:layout_gravity="center_horizontal"
+android:layout_marginTop="32dp"
+android:letterSpacing="0.1" />
+    </LinearLayout>
