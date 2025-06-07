@@ -46,7 +46,7 @@ Os dados do usuário são protegidos com segurança e criptografia. Tudo o que �
 ## 🛠️ Tecnologias
 
 - Java (Android Studio)
-- Firebase (autenticação e/ou base de dados)
+- Firebase (autenticação e base de dados)
 - VAPI.AI (integração de voz)
 - XML para interfaces
 
